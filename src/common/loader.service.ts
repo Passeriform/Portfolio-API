@@ -17,7 +17,10 @@ export class LoaderService {
     const file = await new Promise((resolve, reject) => {
       s3.getObject(params, (err, data) => {
         if (err) reject(err);
-        resolve(JSON.parse(data.Body.toString('utf-8')));
+
+
+
+        resolve(JSON.parse(data && data.Body.toString('utf-8')));
       });
     });
 
