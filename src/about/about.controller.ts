@@ -13,7 +13,7 @@ export class AboutController {
   */
 
   @Get(':subject')
-  async getTypes(@Param('subject') subject: string): Promise<Array<Object>> {
+  async getTypes(@Param('subject') subject: string): Promise<Object> {
     return this.aboutService.describeFull(subject);
   }
 
