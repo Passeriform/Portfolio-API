@@ -1,33 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import * as aws from 'aws-sdk';
-import { LoaderService } from '../common/loader.service'
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+
+import { Work, WorkDocument } from '../schemas/work.schema'
 
 @Injectable()
 export class WorkService {
-  constructor(private readonly loaderService: LoaderService) { }
 
-  fetchAll(): Promise<Array<Object>> {
-    return this.loaderService.fetchFile("work.json");
+  constructor(@InjectModel(Work.name) private readonly WorkModel: Model<WorkDocument>) { }
+
+  fetchAll(): Promise<Array<Work>> {
+    return this.WorkModel.find().exec();
+  }
+
+  fetch(ref: string): Promise<Work> {
+    return this.WorkModel.findOne({ ref: ref }).exec();
   }
 
   fetchList(key: string): Promise<Array<any>> {
-    return this.loaderService.fetchFile("work.json")
-      .then((workList: Array<Object>) =>
-        workList
-          .map((work) => work[key])
-      )
-      .then((valArray: Array<any>) =>
-        ([] as Array<string>).concat(...valArray)
-          .filter((value, idx, self) => self.indexOf(value) === idx && value != null)
-      );
+    return this.WorkModel.find().distinct(key).exec();
   }
 
-  fetchAndFilter(key: string, value: string): Promise<Array<Object>> {
-    return this.loaderService.fetchFile("work.json")
-      .then((workList: Array<Object>) =>
-        workList.filter((work) =>
-          work[key] === value
-        )
-      );
+  async fetchAndFilter(key: string, value: string): Promise<Array<Work>> {
+    return this.WorkModel.find({ [key]: value }).exec();
   }
 }

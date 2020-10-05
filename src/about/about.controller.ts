@@ -1,5 +1,6 @@
 import { Controller, Param, Get } from '@nestjs/common';
 import { AboutService } from './about.service';
+import { About } from '../schemas/about.schema';
 
 @Controller('about')
 export class AboutController {
@@ -13,8 +14,8 @@ export class AboutController {
   */
 
   @Get(':subject')
-  async getTypes(@Param('subject') subject: string): Promise<Object> {
-    return this.aboutService.describeFull(subject);
+  async getTypes(@Param('subject') subject: string): Promise<About> {
+    return this.aboutService.fetch(subject);
   }
 
   // Need to chain filters together later
