@@ -4,6 +4,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -25,8 +26,10 @@ async function bootstrap() {
   * SwaggerModule.setup('api', app, document);
   */
 
+  const configService: ConfigService = app.get(ConfigService);
+
   app.enableCors();
-  await app.listen(<number>app.get('ConfigService').get('app.PORT') || 3000, app.get('ConfigService').get('app.HOST') || '0.0.0.0');
+  await app.listen(<number>configService.get('PORT') || 3000, <string>configService.get('HOST') || '0.0.0.0');
 }
 
 bootstrap();
