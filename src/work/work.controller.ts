@@ -1,10 +1,12 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { FilterApi, FilterService } from '@nestjs-pf/mongoose-filters';
 import { WorkService } from './work.service';
 import { Work } from '../schemas/work.schema';
 
+@FilterApi()
 @Controller('work')
 export class WorkController {
-  constructor(private readonly workService: WorkService) {}
+  constructor(private readonly workService: WorkService, private readonly filterService: FilterService) { }
 
   @Get()
   async getAllWork(): Promise<Work[]> {
