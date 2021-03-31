@@ -7,7 +7,7 @@ export type WorkDocument = Work & Document
 
 @Schema({ collection: 'work' })
 export class Work {
-  @Prop() type: { type: string };
+  @Prop({ type: String }) type: { type: string };
   @Prop() ref: string;
   @Prop() route: string;
   @Prop() title: string;

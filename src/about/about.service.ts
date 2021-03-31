@@ -7,9 +7,13 @@ import { About, AboutDocument } from '../schemas/about.schema';
 @Injectable()
 export class AboutService {
 
-  constructor(@InjectModel(About.name) private readonly AboutModel: Model<AboutDocument>) { }
+  constructor(@InjectModel(About.name) private readonly aboutModel: Model<AboutDocument>) { }
 
-  async fetch(subject: string): Promise<About> {
-    return this.AboutModel.findOne({ 'subject': subject }).exec();
+  fetchAll(): Promise<About[]> {
+    return this.aboutModel.find().exec();
+  }
+
+  fetch(subject: string): Promise<About> {
+    return this.aboutModel.findOne({ 'subject': subject }).exec();
   }
 }

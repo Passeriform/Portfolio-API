@@ -21,24 +21,24 @@ export class ParaBlock {
 
 @Schema()
 export class PopupBlock {
-  @Prop() img: String;
-  @Prop() title: String;
-  @Prop() description: String;
-  @Prop() aboutUrl: String;
-  @Prop() links: String;
+  @Prop() img: string;
+  @Prop() title: string;
+  @Prop() description: string;
+  @Prop() aboutUrl: string;
+  @Prop() links: string;
 }
 
 @Schema()
 export class TimeBlock {
-  @Prop() img: String;
-  @Prop() period: String;
+  @Prop() img: string;
+  @Prop() period: string;
   @Prop() entry: ParaBlock;
 }
 
 @Schema()
 export class LinkBlock {
-  @Prop() type: { type: String };
-  @Prop() link: String;
+  @Prop({ type: String }) type: { type: string };
+  @Prop() link: string;
 }
 
 @Schema()
@@ -48,7 +48,7 @@ export class Timeline {
 
 @Schema({ collection: 'about' })
 export class About {
-  @Prop() subject: String;
+  @Prop() subject: string;
   @Prop() intro: ParaBlock;
   @Prop() overview: [ParaBlock];
   @Prop() story: Timeline;

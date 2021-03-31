@@ -7,21 +7,17 @@ import { Work, WorkDocument } from '../schemas/work.schema'
 @Injectable()
 export class WorkService {
 
-  constructor(@InjectModel(Work.name) private readonly WorkModel: Model<WorkDocument>) { }
+  constructor(@InjectModel(Work.name) private readonly workModel: Model<WorkDocument>) { }
 
-  fetchAll(): Promise<Array<Work>> {
-    return this.WorkModel.find().exec();
+  fetchAll(): Promise<Work[]> {
+    return this.workModel.find().exec();
   }
 
   fetch(ref: string): Promise<Work> {
-    return this.WorkModel.findOne({ ref: ref }).exec();
+    return this.workModel.findOne({ ref: ref }).exec();
   }
 
-  fetchList(key: string): Promise<Array<any>> {
-    return this.WorkModel.find().distinct(key).exec();
-  }
-
-  async fetchAndFilter(key: string, value: string): Promise<Array<Work>> {
-    return this.WorkModel.find({ [key]: value }).exec();
+  fetchPropertyValues(property: string): Promise<any[]> {
+    return this.workModel.find().distinct(property).exec();
   }
 }
