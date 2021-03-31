@@ -33,8 +33,9 @@
     "cache-manager": "^3.4.1",
     "fastify-swagger": "^3.1.1",
     "mongoose": "^5.11.19",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.6.7"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
