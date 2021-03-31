@@ -1,4 +1,4 @@
-import { Controller, Param, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { AboutService } from './about.service';
 import { About } from '../schemas/about.schema';
 
