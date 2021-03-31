@@ -1,13 +1,15 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { FilterApi, FilterService } from '@nestjs-pf/mongoose-filters';
 import { WorkService } from './work.service';
 import { Work } from '../schemas/work.schema';
+import { PaginationInterceptor } from '../pagination/pagination.interceptor'
 
 @FilterApi()
 @Controller('work')
 export class WorkController {
   constructor(private readonly workService: WorkService, private readonly filterService: FilterService) { }
 
+  @UseInterceptors(PaginationInterceptor)
   @Get()
   async getAllWork(): Promise<Work[]> {
     return this.workService.fetchAll();
@@ -18,6 +20,7 @@ export class WorkController {
     return this.workService.fetch(ref);
   }
 
+  @UseInterceptors(PaginationInterceptor)
   @Get('list/:property')
   async getListByKey(@Param('property') property: string): Promise<string[]> {
     return this.workService.fetchPropertyValues(property);
