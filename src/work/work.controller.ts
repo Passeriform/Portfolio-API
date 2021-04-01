@@ -3,7 +3,9 @@ import { FilterApi, FilterService } from '@nestjs-pf/mongoose-filters';
 import { WorkService } from './work.service';
 import { Work } from '../schemas/work.schema';
 import { PaginationInterceptor } from '../pagination/pagination.interceptor'
+import { AliasingInterceptor } from '../aliasing/aliasing.interceptor';
 
+@UseInterceptors(AliasingInterceptor)
 @FilterApi()
 @Controller('work')
 export class WorkController {

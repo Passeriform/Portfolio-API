@@ -3,7 +3,9 @@ import { FilterApi, FilterService } from '@nestjs-pf/mongoose-filters';
 import { AboutService } from './about.service';
 import { About } from '../schemas/about.schema';
 import { PaginationInterceptor } from '../pagination/pagination.interceptor';
+import { AliasingInterceptor } from '../aliasing/aliasing.interceptor';
 
+@UseInterceptors(AliasingInterceptor)
 @FilterApi()
 @Controller('about')
 export class AboutController {

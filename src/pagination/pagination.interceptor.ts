@@ -25,7 +25,9 @@ export class PaginationInterceptor<T> implements NestInterceptor<T> {
     const request = context.switchToHttp().getRequest();
 
     const page = parseInt(request.query.page);
-    const epp = parseInt(request.query.epp);
+    const epp = parseInt(request.query.epp ?? "5");
+
+    if (!page || !epp) { return next.handle(); }
 
     const restrictedPage = Math.min(page, absolute_page_limit);
     const restrictedEpp = Math.min(epp, absolute_epp_limit);
