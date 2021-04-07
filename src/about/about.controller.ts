@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Optional, Param, Query, UseInterceptors } from '@nestjs/common';
 import { FilterApi, FilterService } from '@nestjs-pf/mongoose-filters';
 import { AboutService } from './about.service';
 import { About } from '../schemas/about.schema';
@@ -13,12 +13,12 @@ export class AboutController {
 
   @UseInterceptors(PaginationInterceptor)
   @Get()
-  async getAllAbout(): Promise<About[]> {
-    return this.aboutService.fetchAll();
+  async getManyAbout(@Optional() @Query() query): Promise<About[]> {
+    return this.aboutService.fetchMany(query.select);
   }
 
   @Get(':subject')
-  async getAbout(@Param('subject') subject: string): Promise<About> {
-    return this.aboutService.fetch(subject);
+  async getAbout(@Param('subject') subject: string, @Optional() @Query() query): Promise<About> {
+    return this.aboutService.fetch(subject, query.select);
   }
 }

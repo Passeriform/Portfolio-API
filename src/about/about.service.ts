@@ -9,11 +9,11 @@ export class AboutService {
 
   constructor(@InjectModel(About.name) private readonly aboutModel: Model<AboutDocument>) { }
 
-  fetchAll(): Promise<About[]> {
-    return this.aboutModel.find().exec();
+  fetchMany(selector?: string): Promise<About[]> {
+    return this.aboutModel.find({}, selector ?.split(",") ?.join(" ") ?? "").exec();
   }
 
-  fetch(subject: string): Promise<About> {
-    return this.aboutModel.findOne({ 'subject': subject }).exec();
+  fetch(subject: string, selector?: string): Promise<About> {
+    return this.aboutModel.findOne({ 'subject': subject }, selector ?.split(",") ?.join(" ") ?? "" ).exec();
   }
 }
