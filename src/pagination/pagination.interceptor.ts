@@ -32,6 +32,8 @@ export class PaginationInterceptor<T> implements NestInterceptor<T> {
     const restrictedPage = Math.min(page, absolute_page_limit);
     const restrictedEpp = Math.min(epp, absolute_epp_limit);
 
+    // TODO: Pass it inside controller where it can be used in the find query. Keep the other logic as well in-case new controllers forget to implement the paging system
+
     const startIdx = (restrictedPage - 1) * restrictedEpp;
     const endIdx = restrictedPage * restrictedEpp;
 

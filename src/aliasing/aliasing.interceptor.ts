@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { renameProperties } from './aliasing.helper';
 
+// TODO: Add support for nested fields
+// TODO: Pass the document.data selection from constructor
+// TODO: Add pick interceptor for picking out certain fields only
 @Injectable()
 export class AliasingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
@@ -20,9 +23,15 @@ export class AliasingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map(
         (documents) => {
-          (!Array.isArray(documents) ? documents.data : documents).map(
-            (document) => renameProperties(attribs, rename, document._doc)
-          )
+          if (!Array.isArray(documents) && !Array.isArray(documents.data)) {
+            // Managing output of findOne
+            documents._doc = renameProperties(attribs, rename, documents._doc)
+          } else {
+            (!Array.isArray(documents) ? documents.data : documents).forEach(
+              // Managing output of findMany/find
+              (doc) => doc._doc = renameProperties(attribs, rename, doc._doc)
+            )
+          }
           return documents
         }
       )

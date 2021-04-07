@@ -9,8 +9,8 @@ export class WorkService {
 
   constructor(@InjectModel(Work.name) private readonly workModel: Model<WorkDocument>) { }
 
-  fetchAll(): Promise<Work[]> {
-    return this.workModel.find().exec();
+  fetchMany(selector: string): Promise<Work[]> {
+    return this.workModel.find({}, selector ?.split(",") ?.join(" ") ?? "").exec();
   }
 
   fetch(ref: string): Promise<Work> {

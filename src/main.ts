@@ -27,7 +27,15 @@ async function bootstrap() {
 
   const configService: ConfigService = app.get(ConfigService);
 
-  app.enableCors();
+  app.register(
+    require('fastify-cors'),
+    {
+      origin: "http://localhost:4200",
+      // allowedHeaders: ['Origin', 'X-Requested-With', 'Accept', 'Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'],
+      // methods: ['GET', 'PUT', 'OPTIONS', 'POST', 'DELETE']
+    }
+  );
+
   await app.listen(<number>configService.get('PORT') || 3000, <string>configService.get('HOST') || '0.0.0.0');
 }
 
