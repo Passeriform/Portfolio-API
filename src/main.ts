@@ -27,7 +27,14 @@ async function bootstrap() {
 
   const configService: ConfigService = app.get(ConfigService);
 
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      "http://localhost:4200",
+      "https://passeriform.github.io",
+      "https://www.passeriform.com",
+    ],
+  });
+
   await app.listen(<number>configService.get('PORT') || 3000, <string>configService.get('HOST') || '0.0.0.0');
 }
 
