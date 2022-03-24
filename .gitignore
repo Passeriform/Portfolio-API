@@ -6,6 +6,7 @@ package-lock.json
 # Environment
 .env*
 env.js.*
+!.env.example
 
 # Logs
 logs
