@@ -10,7 +10,7 @@ export class WorkService {
   constructor(@InjectModel(Work.name) private readonly workModel: Model<WorkDocument>) { }
 
   fetchMany(selector: string): Promise<Work[]> {
-    return this.workModel.find({}, selector ?.split(",") ?.join(" ") ?? "").exec();
+    return this.workModel.find({}, selector?.split(",")?.join(" ") ?? "").exec();
   }
 
   fetch(ref: string): Promise<Work> {

@@ -3,6 +3,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { renameProperties } from './aliasing.helper';
 
+// TODO: Add support for nested fields
+// TODO: Pass the document.data selection from constructor
+// TODO: Add pick interceptor for picking out certain fields only
 @Injectable()
 export class AliasingInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {

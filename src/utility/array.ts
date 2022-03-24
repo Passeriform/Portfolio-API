@@ -17,5 +17,5 @@ export const index = (obj, is, value?) => {
     return obj;
 
   // Recursion loop
-  return index(obj ?.[is[0]] ?? "", is.slice(1), value);
+  return index(obj?.[is[0]] ?? "", is.slice(1), value);
 }

@@ -5,6 +5,7 @@ import { About } from '../schemas/about.schema';
 import { PaginationInterceptor } from '../pagination/pagination.interceptor';
 import { AliasingInterceptor } from '../aliasing/aliasing.interceptor';
 
+// TODO: Use dynamic find filters from query params in mongoose-filter routes using Interceptor to catch the request, validate the params
 @UseInterceptors(AliasingInterceptor)
 @FilterApi()
 @Controller('about')
