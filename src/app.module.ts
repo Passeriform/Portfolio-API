@@ -20,7 +20,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     CacheModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        ttl: configService.get<string>('CACHE_TTL'),
+        ttl: configService.get<number>('CACHE_TTL'),
       }),
       inject: [ConfigService],
     }),
